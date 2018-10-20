@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarTogglerDemo01"
+				aria-controls="navbarTogglerDemo01" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+				<a class="navbar-brand" th:href="@{/login}">Romeltex</a>
+				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/login}">Home</a></li>
+					<li class="nav-item active"><a class="nav-link" href="#"
+						th:href="@{/cliente/listar}">Cliente</a></li>
+
+				</ul>
+				
+				<ul class="navbar-nav navbar-right">
+					<li sec:authorize="!isAuthenticated()"><a
+						class="btn btn-outline-primary" th:href="@{/login}">Log In</a></li>
+
+					<li sec:authorize="isAuthenticated()" class="dropdown show"><a
+						class="btn btn-outline-primary dropdown-toggle" href="#"
+						role="button" id="dropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"><span
+							sec:authentication="name"></span></a>
+
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+							
+								<form id="logoutForm" th:action="@{/logout}" method="post">
+									<button class="dropdown-item"
+										onclick="document.getElementById('logoutForm').submit();"
+										type="submit">Log Out</button>
+									<input type="hidden" th:name="${_csrf.parameterName}"
+										th:value="${_csrf.token}" />
+								</form>
+	
+							</div>
+						</li>
+				</ul>
+			</div>
+		</nav>
+
+		
+		<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+		<div class="alert alert-warning" th:if="${warning != null}" th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+		
+	</header>
+
+	<div class="container py-4">
+
+		<div class="card bg-danger text-white">
+			<div class="card-header">Error:Access denied!</div>
+			<div class="card-body">
+				<h5 class="card-title">
+					Sorry <span th:text="${#authentication.name}"></span>,
+					NOT have permissions to access this resource.
+				</h5>
+				<a th:href="@{/login}" class="btn btn-outline-light" role="button">
+					Log in</a>
+
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

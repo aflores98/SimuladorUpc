@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+	<div class="container py-4">
+
+		<div class="card bg-light">
+			<div class="card-header text-white bg-dark">Inicio Simulador UPC: Bienvenido</div>
+			<div class="card-body">
+
+				<form th:action="@{/juego/inicio}" method="get">
+					<div class="form-group row">
+						<label for="round" class="col-sm-2 col-form-label">Numero
+							de rounds </label>
+						<div class="col-sm-6">
+							<input class="form-control" type="number" name="round" id="round"
+								value="4" min="4" max="8" required
+								placeholder="Introduce el numero de rounds" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="round" class="col-sm-2 col-form-label">Numero
+							de grupos </label>
+						<div class="col-sm-6">
+							<input class="form-control" type="number" name="grupo" id="grupo"
+								value="2" min="2" max="6" required
+								placeholder="Introduce el numero de grupos" />
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label for="round" class="col-sm-2 col-form-label">Materia
+							prima inicial </label>
+						<div class="col-sm-6">
+							<input class="form-control" type="number" name="materia"
+								id="materia" value="2" min="2" max="4" required
+								placeholder="Introduce el numero de materia prima inicial" />
+						</div>
+					</div>
+					<div class="mx-auto">
+						<input type="submit" class="btn btn-primary center-block"
+							th:value="Iniciar_Simulacion" />
+					</div>
+				</form>
+
+
+
+			</div>
+		</div>
+	</div>
+
+	<footer th:replace="layout/layout :: footer"></footer>
+</body>
+</html>

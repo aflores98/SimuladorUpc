@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+
+
+</head>
+<body>
+
+	<h1 class="text-center">REPORTE</h1>
+
+	<div class="card-body">
+
+		<div class="row" >
+			<div class="col-md-8">
+				<h4>CONDICIONES INICIALES</h4>
+			</div>
+
+				<div class="col-8" >
+				
+				<table class="table table-striped table-bordered">
+
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Round</th>
+						<th>Precio MP</th>
+						<th>Precio Producto</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="r,iterStat: ${rounds}"  th:class="${iterStat.index}? 'index'">
+						<td th:text="${r.id_round}"></td>
+						<td th:text="'Round '+${iterStat.index +1 }"></td>
+						<td th:text="${r.materiaPrima}"></td>
+						<td th:text="${r.producto}"></td>
+					</tr>
+				</tbody>
+
+
+			</table>
+				
+				</div>
+				<div>
+				
+						<label th:text="'Capital inicial: '+ ${capital}">Capital Inicial: </label>
+					
+
+					<div>Producto Por Hoja: 4</div>
+
+					
+						<label th:text="'Cantidad de productos: '+ ${cantidadP}">Cantidad
+							de Productos: </label>
+					
+				</div>
+			</div>
+		
+		<div>
+		
+			<table class="table table-striped table-bordered">
+
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Grupo</th>
+						<th>Inventario Final</th>
+						<th> Utilidad </th>
+						<th> Valor Inventario </th>
+						
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="grupo, iterStat: ${grupos}" th:class="${iterStat.index}? 'index'">
+						<td th:text="${grupo.id_grupo}"></td>
+						<td th:text="'Grupo '+${iterStat.index +1 }"></td>						
+						<td th:text="${grupo.inventario}"></td>
+						<td th:text="${grupo.saldo}"></td>
+						<td th:text="${grupo.venta}"></td>
+					</tr>
+				</tbody>
+			</table>
+		
+		</div>
+		
+		<h4 class="card-title text-center">
+			<a th:href="fin" class="btn btn-primary btn-xs">Finalizar
+				Juego</a>
+		</h4>
+	</div>
+	
+	
+
+</body>
+</html>

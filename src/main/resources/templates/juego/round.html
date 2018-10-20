@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+
+<script type = "text/javascript" >
+
+	fuction 
+
+</script>
+
+
+</head>
+<script type="text/javascript">
+var cronometro;
+	function carga()
+	{
+	var contador_s=0;
+	var contador_m=0;
+	var ingresarvalores=0;
+	var s=document.getElementById("segundos");
+	var m=document.getElementById("minutos");
+	var cronometro=setInterval(
+			function(){
+				if(contador_s==60)
+					{
+						contador_s=0;
+						contador_m++;
+						m.innerHTML=contador_m;
+						if(contador_m==3)
+							{
+							ingresarvalores++;
+								contador_m=0;					
+								m.innerHTML=contador_m;
+							
+							}	
+						if(ingresarvalores==1&&contador_m==2)	
+							{
+							
+							clearInterval(cronometro);
+							window.location="/juego/round";
+							}				
+					}
+				s.innerHTML=contador_s;
+				contador_s++;
+				},1000);
+
+
+	
+	
+	
+	
+
+}
+	</script>
+
+<body onload="carga()">
+<div class="card-header text-white bg-dark">
+<div class="row justify-content-around">
+<div class="col-3">
+
+</div>
+<div class="col-4">
+	<p class="text-center">
+	Minutos: <span id="minutos">0</span>
+	Segundos: <span id="segundos">0</span>
+	</p>
+
+</div>
+
+
+</div>
+
+</div>
+
+	<h1 class="text-center" th:text="${titulo}">ROUND </h1>
+
+	<div class="card-body">
+		<div class="row" th:object="${round}">
+			<div class="col-xs-12 col-sm-6 col-md-8">
+				<h4>CONDICIONES INICIALES</h4>
+			</div>
+
+			<div class="col-md-6">
+				<h5>Precios</h5>
+			</div>
+			<div class="col-md-6">
+				<label th:text="'Capital inicial: '+ ${capital}">Capital
+					Inicial: </label>
+			</div>
+			<div class="col-md-6">
+				<label th:text="'Precio Materia Prima: '+ ${round.materiaPrima}">Precio
+					Materia Prima:</label>
+			</div>
+			<div class="col-md-6">Producto Por Hoja: 4</div>
+			<div class="col-md-6">
+				<label th:text="'Precio Producto: '+ ${round.producto}">
+					Precio Producto: </label>
+			</div>
+			<div class="col-md-6">
+				<label th:text="'Cantidad de productos: '+ ${cantidadP}">Cantidad
+					de Productos: </label>
+			</div>
+
+		</div>
+<div class="alert alert-danger" th:if="${error != null}"
+			th:text="${error}"></div>
+		<div class="card-body">
+
+		
+
+				<div class="row">
+					<div class="col">
+
+						<label for="round" class="col-sm-8">ID de Grupo </label> 
+
+					</div>
+					<div class="col">
+
+						<label for="grupo" class="col-sm-8 col-form-label">Compra
+						</label> 
+
+					</div>
+					<div class="col">
+
+						<label for="grupo" class="col-sm-8 col-form-label">Venta </label>
+						
+
+					</div>
+					<div class="col">
+
+						
+
+					</div>
+				</div>
+	<form th:action="@{/juego/guardar}" th:object="${gr}" method="post" >
+				<div class="row">
+					<div class="col">
+							<select class="form-control col-sm-6"  th:field="*{id_grupo}" >
+								<option th:each="c:${copia}" th:value="${c.id_grupo}" 
+									th:text="'Grupo ID: '+${c.id_grupo}"></option>
+							</select>
+						</div>
+							
+					<div class="col"><input class="form-control col-sm-6" type="number" name="compra" value= "0" min = "0"  required th:field="*{compra}"
+							id="compra" /></div>
+					<div class="col"><input class="form-control col-sm-6" type="number" name="venta" value= "0" min = "0"  required th:field="*{venta}"
+							id="venta" /></div>
+					<div class="col"><input type="submit" class="btn btn-primary center-block" 
+							th:value="Guardar" /></div>
+				</div>
+
+			</form>
+
+		</div>
+
+		<div class="card-body" id="fragmento">
+
+			<table class="table table-striped table-bordered">
+
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Grupo</th>
+						<th>Stock</th>
+						<th>Saldo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="grupo,iterStat: ${grupos}" th:class="${iterStat.index}? 'index'">
+						<td th:text="${grupo.id_grupo}"></td>
+						<td th:text="'Grupo '+${iterStat.index +1 }"></td>		
+						<td th:text="${grupo.inventario}"></td>
+						<td th:text="${grupo.saldo}"></td>
+					</tr>
+				</tbody>
+
+
+			</table>
+
+		</div>
+	
+		<h4 class="card-title text-center">
+			<a th:href="@{/juego/pasar/}" class="btn btn-primary btn-xs">Finalizar
+				Round</a>
+		</h4>
+	</div>
+
+</body>
+</html>
