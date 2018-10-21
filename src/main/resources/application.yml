@@ -24,7 +24,7 @@ spring:
   #estrategia de generacion de base de datos
   datasource:
     driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost/dbsimulador
+    url: jdbc:postgresql://localhost/dbsimula
     username: postgres
     password: admin
     
